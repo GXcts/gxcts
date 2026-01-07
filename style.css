@@ -2081,11 +2081,11 @@ footer {
         background: none !important;
     }
 
-    /* --- OPTIMIZATION: Services Horizontal Scroll --- */
+    /* --- OPTIMIZATION: Services Horizontal Scroll (Free Scroll) --- */
     .services-grid {
         display: flex;
         overflow-x: auto;
-        scroll-snap-type: x mandatory;
+        /* Removed scroll-snap for smoother vertical scrolling experience */
         gap: 20px;
         padding-bottom: 30px;
         /* Space for scrollbar or touch area */
@@ -2101,8 +2101,14 @@ footer {
     .service-card {
         min-width: 85vw;
         /* Card takes 85% of screen width */
-        scroll-snap-align: center;
+        /* Removed snap align */
         margin-right: 0;
+    }
+
+    /* --- OPTIMIZATION: Hide Desktop Cursor on Mobile --- */
+    .cursor-dot,
+    .cursor-outline {
+        display: none !important;
     }
 
     /* --- OPTIMIZATION: Project Cards Always Visible --- */
@@ -2115,6 +2121,42 @@ footer {
     }
 
     /* --- OPTIMIZATION: Contact Form --- */
+    /* FIX: Form Overflow - Strict Container Management */
+    .contact-wrapper {
+        padding: 20px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        /* Ensure it never exceeds viewport */
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+        /* Force clip context */
+        display: flex;
+        flex-direction: column;
+    }
+
+    .contact-form {
+        width: 100% !important;
+        box-sizing: border-box !important;
+        max-width: 100%;
+    }
+
+    .form-group {
+        width: 100% !important;
+        box-sizing: border-box !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        /* Flexbox safety */
+        box-sizing: border-box !important;
+        margin: 0 !important;
+    }
+
     .submit-btn {
         width: 100%;
         justify-content: center;
@@ -2123,18 +2165,13 @@ footer {
         font-size: 1.1rem;
     }
 
-    .form-group input,
-    .form-group textarea {
-        width: 100%;
-        max-width: 100%;
-        box-sizing: border-box;
-    }
-
     /* FIX: Dropdown Overflow */
     .custom-select-container {
         width: 100% !important;
         max-width: 100% !important;
+        min-width: 0 !important;
         box-sizing: border-box !important;
+        margin: 0 !important;
     }
 
     .select-trigger {
@@ -2209,5 +2246,18 @@ footer {
             transform: translateY(-50%) scale(1.2);
             opacity: 0.9;
         }
+    }
+
+    /* --- OPTIMIZATION: Vertical Scroll Experience --- */
+    html {
+        scroll-snap-type: none !important;
+        /* Disable vertical snap on mobile for native feel */
+    }
+
+    section {
+        scroll-snap-align: none !important;
+        padding-top: 60px;
+        /* Better spacing for mobile flow */
+        padding-bottom: 60px;
     }
 }

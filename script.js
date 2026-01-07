@@ -503,6 +503,17 @@ const App = {
 
 // Initialize App
 document.addEventListener('DOMContentLoaded', () => {
+    // --- FORCE RESET: Scroll to Top & Clear Hash ---
+    if (history.scrollRestoration) {
+        history.scrollRestoration = 'manual'; // Disable browser auto-scroll restoration
+    }
+    window.scrollTo(0, 0);
+
+    // Clean URL hash (remove #services etc)
+    if (window.location.hash) {
+        history.replaceState(null, null, window.location.pathname);
+    }
+
     App.init();
     App.initMobileScrollHints();
 });
