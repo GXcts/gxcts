@@ -381,10 +381,19 @@ const App = {
             // Real Netlify Form Submission
             const formData = new FormData(form);
 
+            // Convert to URLSearchParams to ensure proper encoding
+            const params = new URLSearchParams(formData);
+
+            // Critical: Netlify needs to know WHICH form this is
+            // Even though we have a hidden input, let's force it here to be safe
+            if (!params.has('form-name')) {
+                params.append('form-name', 'contact');
+            }
+
             fetch("/", {
                 method: "POST",
                 headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                body: new URLSearchParams(formData).toString(),
+                body: params.toString(),
             })
                 .then(() => {
                     loader.style.display = 'none';
