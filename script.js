@@ -378,6 +378,26 @@ const App = {
             const name = document.getElementById('name').value;
             const type = document.getElementById('type').value;
 
+            // Anti-Spam: Rate Limiting (10 Minutes)
+            const COOLDOWN_TIME = 1 * 60 * 1000; // 1 minutes in ms
+            const lastSubmit = localStorage.getItem('gx_last_submit');
+
+            if (lastSubmit && (Date.now() - parseInt(lastSubmit)) < COOLDOWN_TIME) {
+                // Determine remaining time
+                const remaining = Math.ceil((COOLDOWN_TIME - (Date.now() - parseInt(lastSubmit))) / 60000);
+
+                loader.style.display = 'none';
+                btnText.style.display = 'block';
+                submitBtn.disabled = false;
+
+                const warningMsg = this.state.currentLang === 'zh-TW'
+                    ? `<p style="color: #ffaa00;">發送過於頻繁，請於 ${remaining} 分鐘後再試。</p>`
+                    : `<p style="color: #ffaa00;">Too many requests. Please try again in ${remaining} mins.</p>`;
+
+                messageDiv.innerHTML = warningMsg;
+                return; // Stop execution
+            }
+
             // Real Netlify Form Submission
             const formData = new FormData(form);
 
@@ -396,6 +416,9 @@ const App = {
                 body: params.toString(),
             })
                 .then(() => {
+                    // Set Cooldown Timestamp
+                    localStorage.setItem('gx_last_submit', Date.now().toString());
+
                     loader.style.display = 'none';
                     btnText.style.display = 'block';
                     btnText.innerText = this.state.currentLang === 'zh-TW' ? '傳輸已送出' : 'Transmission Sent';
