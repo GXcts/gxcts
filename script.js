@@ -429,7 +429,11 @@ const App = {
                     submitBtn.style.backgroundColor = '#00ff88';
 
                     const rawMsg = I18N_DATA[this.state.currentLang]['msg_success'];
-                    messageDiv.innerHTML = rawMsg.replace('{name}', name).replace('{type}', type);
+                    // FIX: XSS Prevention - Escape user input
+                    const safeName = this.escapeHtml(name);
+                    const safeType = this.escapeHtml(type);
+
+                    messageDiv.innerHTML = rawMsg.replace('{name}', safeName).replace('{type}', safeType);
 
                     form.reset();
 
@@ -446,7 +450,9 @@ const App = {
                     loader.style.display = 'none';
                     btnText.style.display = 'block';
                     submitBtn.disabled = false;
-                    messageDiv.innerHTML = `<p style="color: #ff4444;">Sending failed (${error.message}). Please try again.</p>`;
+                    // FIX: XSS Prevention - Escape error message
+                    const safeError = this.escapeHtml(error.message);
+                    messageDiv.innerHTML = `<p style="color: #ff4444;">Sending failed (${safeError}). Please try again.</p>`;
                 });
         });
     },
@@ -484,6 +490,16 @@ const App = {
     },
 
     /* --- Utilities --- */
+    escapeHtml(text) {
+        if (!text) return text;
+        return String(text)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    },
+
     delay(ms) { return new Promise(r => setTimeout(r, ms)); },
 
     async typeText(element, text, speed) {
