@@ -415,8 +415,12 @@ const App = {
                 headers: { "Content-Type": "application/x-www-form-urlencoded" },
                 body: params.toString(),
             })
-                .then(() => {
-                    // Set Cooldown Timestamp
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Server status: ${response.status}`);
+                    }
+
+                    // Set Cooldown Timestamp only on success
                     localStorage.setItem('gx_last_submit', Date.now().toString());
 
                     loader.style.display = 'none';
@@ -442,7 +446,7 @@ const App = {
                     loader.style.display = 'none';
                     btnText.style.display = 'block';
                     submitBtn.disabled = false;
-                    messageDiv.innerHTML = `<p style="color: #ff4444;">Sending failed. Please try again.</p>`;
+                    messageDiv.innerHTML = `<p style="color: #ff4444;">Sending failed (${error.message}). Please try again.</p>`;
                 });
         });
     },
