@@ -113,34 +113,60 @@
                 <div class="line"></div>
             </div>
 
-            <div class="services-grid">
-                <!-- Service 1: Design (Referencing EC_t1) -->
-                <div class="service-card glass-panel" data-tilt>
-                    <div class="icon-box design-icon">
-                        <i class="fa-solid fa-layer-group"></i>
+            <!-- Wrapped for Scroll Hints -->
+            <div class="scroll-wrapper">
+                <div class="scroll-hint-arrow left-arrow"><i class="fa-solid fa-chevron-left"></i></div>
+
+                <div class="services-grid">
+                    <!-- Service 1: Design (Referencing EC_t1) -->
+                    <div class="service-card glass-panel" data-tilt>
+                        <div class="icon-box design-icon">
+                            <i class="fa-solid fa-layer-group"></i>
+                        </div>
+                        <h3 data-i18n="service_design_title">沉浸式體驗設計</h3>
+                        <p data-i18n="service_design_desc">拒絕平庸的模板。我們引入次世代視覺標準，為使用者創造過目難忘的「神級」互動體驗。</p>
+                        <ul class="service-list">
+                            <li><i class="fa-solid fa-check"></i> <span data-i18n="service_uiux">UI/UX 使用者體驗策略</span>
+                            </li>
+                            <li><i class="fa-solid fa-check"></i> <span data-i18n="service_identity">CIS 企業識別系統</span>
+                            </li>
+                            <li><i class="fa-solid fa-check"></i> <span data-i18n="service_proto">高保真互動原型</span></li>
+                        </ul>
                     </div>
-                    <h3 data-i18n="service_design_title">沉浸式體驗設計</h3>
-                    <p data-i18n="service_design_desc">拒絕平庸的模板。我們引入次世代視覺標準，為使用者創造過目難忘的「神級」互動體驗。</p>
-                    <ul class="service-list">
-                        <li><i class="fa-solid fa-check"></i> <span data-i18n="service_uiux">UI/UX 使用者體驗策略</span></li>
-                        <li><i class="fa-solid fa-check"></i> <span data-i18n="service_identity">CIS 企業識別系統</span></li>
-                        <li><i class="fa-solid fa-check"></i> <span data-i18n="service_proto">高保真互動原型</span></li>
-                    </ul>
+
+                    <!-- Service 2: Development (Referencing css-test/sudoku) -->
+                    <div class="service-card glass-panel" data-tilt>
+                        <div class="icon-box dev-icon">
+                            <i class="fa-solid fa-code"></i>
+                        </div>
+                        <h3 data-i18n="service_dev_title">高複雜度系統開發</h3>
+                        <p data-i18n="service_dev_desc">從物理模擬引擎到高邏輯運算核心。我們擅長建構穩健、可擴展且效能極致的後端與前端架構。</p>
+                        <ul class="service-list">
+                            <li><i class="fa-solid fa-check"></i> <span data-i18n="service_arch">前端架構工程</span></li>
+                            <li><i class="fa-solid fa-check"></i> <span data-i18n="service_logic">客製化商業邏輯</span></li>
+                            <li><i class="fa-solid fa-check"></i> <span data-i18n="service_perf">極限效能優化</span></li>
+                        </ul>
+                    </div>
+
+                    <!-- Service 3: Security + Maintenance -->
+                    <div class="service-card glass-panel" data-tilt>
+                        <div class="icon-box" style="color: #bf00ff;">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <h3 data-i18n="service_sec_title">資安與持續整合</h3>
+                        <p data-i18n="service_sec_desc">安全不是附加功能，是基石。我們部署隱形誘捕系統與自動化防禦，保護您的數位資產。</p>
+                        <ul class="service-list">
+                            <li><i class="fa-solid fa-check"></i> <span data-i18n="service_honeypot">Honeypot
+                                    誘捕機制</span></li>
+                            <li><i class="fa-solid fa-check"></i> <span data-i18n="service_cicd">CI/CD 自動化部署</span></li>
+                            <li><i class="fa-solid fa-check"></i> <span data-i18n="service_ssl">SSL/HTTPS 加密傳輸</span>
+                            </li>
+                        </ul>
+                    </div>
+
                 </div>
 
-                <!-- Service 2: Development (Referencing css-test/sudoku) -->
-                <div class="service-card glass-panel" data-tilt>
-                    <div class="icon-box dev-icon">
-                        <i class="fa-solid fa-code"></i>
-                    </div>
-                    <h3 data-i18n="service_dev_title">高複雜度系統開發</h3>
-                    <p data-i18n="service_dev_desc">從物理模擬引擎到高邏輯運算核心。我們擅長建構穩健、可擴展且效能極致的後端與前端架構。</p>
-                    <ul class="service-list">
-                        <li><i class="fa-solid fa-check"></i> <span data-i18n="service_arch">前端架構工程</span></li>
-                        <li><i class="fa-solid fa-check"></i> <span data-i18n="service_logic">客製化商業邏輯</span></li>
-                        <li><i class="fa-solid fa-check"></i> <span data-i18n="service_perf">極限效能優化</span></li>
-                    </ul>
-                </div>
+                <div class="scroll-hint-arrow right-arrow"><i class="fa-solid fa-chevron-right"></i></div>
             </div>
         </div>
     </section>

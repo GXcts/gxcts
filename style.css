@@ -2011,6 +2011,12 @@ footer {
 }
 
 /* Tablet/Mobile Responsive */
+/* Default: Hide scroll arrows on desktop */
+.scroll-hint-arrow {
+    display: none;
+}
+
+/* Tablet/Mobile Responsive */
 @media (max-width: 768px) {
     .hero-content h1 {
         font-size: 3rem;
@@ -2026,23 +2032,182 @@ footer {
         /* Simplification for this demo */
     }
 
-    /* Disable Orbit on Mobile */
-    .about-visual,
-    .about-text {
-        animation: none !important;
-        transform: none !important;
+    /* 1. Hide the About Image/Visual block on mobile */
+    .about-visual {
+        display: none !important;
     }
 
-    .about-visual {
+    /* 2. Make the About Text block full width and static */
+    .about-text {
+        width: 100% !important;
+        transform: none !important;
+        opacity: 1 !important;
+        animation: none !important;
+        margin-top: 0;
+        padding: 20px;
         margin-right: 0;
-        margin-bottom: 20px;
+        /* Reset margins */
     }
 
     .about-content-wrapper {
         flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
     }
 
-    .about-text {
-        padding: 30px;
+    /* Ensure text is readable */
+    .about-narrative {
+        font-size: 1rem;
+        line-height: 1.6;
+        border-left: none !important;
+        /* Remove the ghost line */
+        padding-left: 0 !important;
+    }
+
+    .about-narrative::before {
+        display: none !important;
+    }
+
+    /* Aggressive cleanup for ghost lines */
+    .about-text::before,
+    .about-text::after,
+    .brand-lockup::before,
+    .brand-lockup::after,
+    .about-heading-small::before,
+    .about-heading-small::after {
+        display: none !important;
+        border: none !important;
+        width: 0 !important;
+        background: none !important;
+    }
+
+    /* --- OPTIMIZATION: Services Horizontal Scroll --- */
+    .services-grid {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        gap: 20px;
+        padding-bottom: 30px;
+        /* Space for scrollbar or touch area */
+        /* Hide scrollbar for cleaner look */
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
+    .services-grid::-webkit-scrollbar {
+        display: none;
+    }
+
+    .service-card {
+        min-width: 85vw;
+        /* Card takes 85% of screen width */
+        scroll-snap-align: center;
+        margin-right: 0;
+    }
+
+    /* --- OPTIMIZATION: Project Cards Always Visible --- */
+    /* Force overlay to show without hover */
+    .project-visual .overlay {
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+        /* Darker gradient for readability */
+    }
+
+    /* --- OPTIMIZATION: Contact Form --- */
+    .submit-btn {
+        width: 100%;
+        justify-content: center;
+        padding: 18px;
+        /* Taller touch target */
+        font-size: 1.1rem;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    /* FIX: Dropdown Overflow */
+    .custom-select-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    .select-trigger {
+        width: 100% !important;
+        box-sizing: border-box !important;
+        /* Ensure text doesn't push width */
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .selected-text {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        flex: 1;
+        /* Take remaining space */
+        min-width: 0;
+        /* Flexbox text overflow fix */
+    }
+
+    /* UX: Swipe Hint */
+    .services-section .section-header::after {
+        display: none !important;
+        /* Remove static text hint, replaced by arrows */
+    }
+
+    /* --- Smart Scroll Arrows --- */
+    .scroll-wrapper {
+        position: relative;
+    }
+
+    .scroll-hint-arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 20;
+        color: var(--primary);
+        font-size: 2rem;
+        opacity: 0;
+        /* Hidden by default, JS toggles .visible */
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+        /* Let clicks pass through */
+        filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.8));
+        /* Ensure visibility against cards */
+        display: block;
+    }
+
+    .scroll-hint-arrow.visible {
+        opacity: 0.6;
+        animation: pulseArrow 2s infinite;
+    }
+
+    .left-arrow {
+        left: 5px;
+    }
+
+    .right-arrow {
+        right: 5px;
+    }
+
+    @keyframes pulseArrow {
+
+        0%,
+        100% {
+            transform: translateY(-50%) scale(1);
+            opacity: 0.6;
+        }
+
+        50% {
+            transform: translateY(-50%) scale(1.2);
+            opacity: 0.9;
+        }
     }
 }

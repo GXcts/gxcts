@@ -451,6 +451,38 @@ const App = {
         });
     },
 
+    initMobileScrollHints() {
+        const grid = document.querySelector('.services-grid');
+        const leftArrow = document.querySelector('.left-arrow');
+        const rightArrow = document.querySelector('.right-arrow');
+
+        if (!grid || !leftArrow || !rightArrow) return;
+
+        const checkScroll = () => {
+            const tolerance = 5; // buffer
+
+            // Show Left Arrow if scrolled right
+            if (grid.scrollLeft > tolerance) {
+                leftArrow.classList.add('visible');
+            } else {
+                leftArrow.classList.remove('visible');
+            }
+
+            // Show Right Arrow if there is scrollable content remaining
+            if (grid.scrollLeft + grid.clientWidth < grid.scrollWidth - tolerance) {
+                rightArrow.classList.add('visible');
+            } else {
+                rightArrow.classList.remove('visible');
+            }
+        };
+
+        grid.addEventListener('scroll', checkScroll);
+        window.addEventListener('resize', checkScroll);
+
+        // Check initially
+        setTimeout(checkScroll, 100);
+    },
+
     /* --- Utilities --- */
     delay(ms) { return new Promise(r => setTimeout(r, ms)); },
 
@@ -470,4 +502,7 @@ const App = {
 };
 
 // Initialize App
-document.addEventListener('DOMContentLoaded', () => App.init());
+document.addEventListener('DOMContentLoaded', () => {
+    App.init();
+    App.initMobileScrollHints();
+});
